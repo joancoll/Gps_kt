@@ -57,7 +57,14 @@ class PermissionManager(private val activityContext: Context) {
                                     // Permission denied
                                     showAlert(
                                         R.string.permissionDenied,
-                                        permissionsRequired[position].permissionExplanation
+                                        permissionsRequired[position].permissionExplanation,
+                                        { _, _ ->
+                                            // Ask again for permission
+                                            askOnePermission(permissionsRequired[position])
+                                        },
+                                        { dialogInterface, _ ->
+                                            dialogInterface.dismiss()
+                                        }
                                     )
                                 }
                                 else -> {
