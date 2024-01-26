@@ -35,12 +35,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun initPermissions() {
         permissionManager.addPermission(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                getString(R.string.locationPermissionNeeded),
-                "",
-                getString(R.string.locationPermissionThanks),
-                getString(R.string.locationPermissionSettings)
-            )
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            getString(R.string.locationPermissionInfo),
+            getString(R.string.locationPermissionNeeded),
+            getString(R.string.locationPermissionDenied),
+            getString(R.string.locationPermissionThanks),
+            getString(R.string.locationPermissionSettings)
+        )
     }
 
     private fun initListeners() {
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 tvLatitude?.text = String.format(Locale.getDefault(), "%.4f", latitude)
                 tvLongitude?.text = String.format(Locale.getDefault(), "%.4f", longitude)
                 Toast.makeText(
-                    context, R.string.locationReady,
+                    context, R.string.locationPermissionReady,
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
