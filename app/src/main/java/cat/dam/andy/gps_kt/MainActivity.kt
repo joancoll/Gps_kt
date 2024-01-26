@@ -15,17 +15,16 @@ class MainActivity : AppCompatActivity() {
     private var tvLatitude: TextView? = null
     private var tvLongitude: TextView? = null
     private var gpsTracker: GpsTracker? = null
-    private var permissionManager: PermissionManager? = null
-
-    private val permissionsRequired: ArrayList<PermissionData> = ArrayList()
+    private val context: Context = this
+    private var permissionManager = PermissionManager(context)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initViews()
         initPermissions()
-        initListeners(this@MainActivity)
-        showGPSInfo(this@MainActivity)
+        initListeners()
+        showGPSInfo()
     }
 
     private fun initViews() {
@@ -35,33 +34,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initPermissions() {
-        permissionsRequired.add(
-            PermissionData(
+        permissionManager.addPermission(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 getString(R.string.locationPermissionNeeded),
                 "",
                 getString(R.string.locationPermissionThanks),
                 getString(R.string.locationPermissionSettings)
             )
-        )
     }
 
-    private fun initListeners(context:Context) {
-        permissionManager = PermissionManager(context, permissionsRequired)
+    private fun initListeners() {
         btnGps?.setOnClickListener {
-            if (!permissionManager?.hasAllNeededPermissions(context, permissionsRequired)!!) {
-                permissionManager?.askForPermissions(
-                    context,
-                    permissionManager!!.getRejectedPermissions(context, permissionsRequired)
-                )
+            if (!permissionManager.hasAllNeededPermissions()) {
+                permissionManager.askForPermissions(permissionManager.getRejectedPermissions())
             } else {
-                showGPSInfo(context)
+                showGPSInfo()
             }
         }
     }
 
-    private fun showGPSInfo(context:Context) {
-        if (permissionManager?.hasAllNeededPermissions(context, permissionsRequired) == true) {
+    private fun showGPSInfo() {
+        if (permissionManager.hasAllNeededPermissions()) {
             gpsTracker = GpsTracker(context)
             if (gpsTracker!!.canGetLocation()) {
                 val latitude: Double = gpsTracker!!.getLatitude()
