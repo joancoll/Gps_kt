@@ -39,19 +39,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/longitude"
-                android:gravity="right"/>
+                android:gravity="end"/>
             <TextView
                 android:id="@+id/tv_longitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-----"/>
+                android:text=""/>
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_gps"
+            android:id="@+id/btn_startLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GPS"/>
+            android:layout_marginTop="15dp"
+            android:text=""/>
 
     </LinearLayout>
 
