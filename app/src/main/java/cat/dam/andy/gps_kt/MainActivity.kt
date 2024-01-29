@@ -2,14 +2,11 @@ package cat.dam.andy.gps_kt
 
 import android.Manifest
 import android.content.Context
-import android.content.Intent
 import android.location.Location
 import android.location.LocationListener
 import android.os.Bundle
-import android.provider.Settings
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
